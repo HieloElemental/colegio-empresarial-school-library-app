@@ -7,7 +7,8 @@ package yerbatero;
 
 /**
  *
- * @author Usuario
+ * @author Alejandro Gutierrez Muñoz; Samuel Betancur Diosa
+ * @grade 11C
  */
 public class Yerbatero {
 

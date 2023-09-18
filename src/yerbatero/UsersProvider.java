@@ -5,21 +5,60 @@
  */
 package yerbatero;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Usuario
  */
 public class UsersProvider {
-    private String[] adminUserNames = {"HieloElemental", "Bywar"};
-    private String[] adminPasswords = {"llelo1234", "lasbolasdecristo"};
+    private List<User> users;
     
-    public boolean validateuser(String userName, String userPassword){
-        boolean response = false;
-        for(int i = 0; i < adminUserNames.length; i++){
-            if(adminUserNames[i].equals(userName) && adminPasswords[i].equals(userPassword)){
-                response = true;
+    public UsersProvider() {
+        users = new ArrayList<>();
+        users.add(new User.Builder()
+            .setUsername("admin")
+            .setPassword("admin123")
+            .setRole("admin")
+            .build());
+        users.add(new User.Builder()
+            .setUsername("user")
+            .setPassword("user123")
+            .setRole("student")
+            .build());
+    }
+    
+    public User login(String username, String password) {
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return user;
             }
         }
-        return response;
+        return null;
+    }
+    
+    public List<User> getUsers() {
+        return users;
+    }
+    
+    public List<User> getAdmins() {
+        List<User> admins = new ArrayList<>();
+        for (User user : users) {
+            if (user.getRole().equals("admin")) {
+                admins.add(user);
+            }
+        }
+        return admins;
+    }
+
+    public List<User> getStudents() {
+        List<User> students = new ArrayList<>();
+        for (User user : users) {
+            if (user.getRole().equals("student")) {
+                students.add(user);
+            }
+        }
+        return students;
     }
 }

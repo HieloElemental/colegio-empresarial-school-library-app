@@ -15,7 +15,9 @@ public class Yerbatero {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Camisa ventana = new Camisa();
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
     }
     
 }

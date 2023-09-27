@@ -10,7 +10,8 @@ import java.util.List;
 
 /**
  *
- * @author Usuario
+ * @author Alejandro Gutierrez Muñoz; Samuel Betancur Diosa
+ * @grade 11C
  */
 public class UsersProvider {
     private List<User> users;
@@ -20,12 +21,12 @@ public class UsersProvider {
         users.add(new User.Builder()
             .setUsername("admin")
             .setPassword("admin123")
-            .setRole("admin")
+            .setRole("Administrator")
             .build());
         users.add(new User.Builder()
             .setUsername("user")
             .setPassword("user123")
-            .setRole("student")
+            .setRole("Student")
             .build());
     }
     

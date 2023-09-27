@@ -7,7 +7,7 @@ package yerbatero;
 
 /**
  *
- * @author Usuario
+ * @author Alejandro Gutierrez Muñoz; Samuel Betancur Diosa
  */
 public class Book {
     private String name;
@@ -35,9 +35,13 @@ public class Book {
             return this;
         }
         
-        public Builder setPassword (String author) {
+        public Builder setBookAuthor (String author) {
             this.author = author;
             return this;
+        }
+        
+        public Book build() {
+            return new Book(name, author);
         }
     }
 }

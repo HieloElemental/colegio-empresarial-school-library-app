@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
  * @grade 11C
  */
 public class Camisa extends javax.swing.JFrame {
-    public UsersProvider usersProvider = new UsersProvider(); 
+    public UsersProvider usersProvider = new UsersProvider();
+    public BookProvider booksProvider = new BookProvider();
+    public String logedUserUsername, logedUserRole;
 
     /**
      * Creates new form Camisa
@@ -95,13 +97,18 @@ public class Camisa extends javax.swing.JFrame {
 
         studentButton.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
         studentButton.setText("Estudiante");
+        studentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentButtonActionPerformed(evt);
+            }
+        });
 
         userPanel.setBackground(new java.awt.Color(0, 102, 102));
         userPanel.setForeground(new java.awt.Color(0, 102, 102));
 
         userTypeLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         userTypeLabel.setForeground(new java.awt.Color(255, 255, 255));
-        userTypeLabel.setText("Administrador");
+        userTypeLabel.setText("<html><p>Rellene los campos y luego haga click en el tipo de usuario con el que desea ingresar</p></html>");
 
         usernameLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -120,22 +127,20 @@ public class Camisa extends javax.swing.JFrame {
         userPanelLayout.setHorizontalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userPanelLayout.createSequentialGroup()
-                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(userTypeLabel)
-                    .addGroup(userPanelLayout.createSequentialGroup()
-                        .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(usernameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(passwordLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(passwordPasswordField)
-                            .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 186, Short.MAX_VALUE))
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usernameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(passwordLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(passwordPasswordField)
+                    .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 41, Short.MAX_VALUE))
+            .addComponent(userTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         userPanelLayout.setVerticalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userPanelLayout.createSequentialGroup()
-                .addComponent(userTypeLabel)
+                .addComponent(userTypeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLabel)
@@ -199,7 +204,7 @@ public class Camisa extends javax.swing.JFrame {
                 .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBookAuthorLabel)
                     .addComponent(addBookAuthorField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         addUserButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -272,18 +277,29 @@ public class Camisa extends javax.swing.JFrame {
 
         imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/librarybg.jpg"))); // NOI18N
 
+        bookSelectPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                bookSelectPanelComponentShown(evt);
+            }
+        });
+
         bookSelectLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         bookSelectLabel.setText("Libros:");
 
         bookSelectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        bookSelectComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bookSelectComboBoxActionPerformed(evt);
+        bookSelectComboBox.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                bookSelectComboBoxComponentShown(evt);
             }
         });
 
         bookSelectButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         bookSelectButton.setText("Reservar!");
+        bookSelectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookSelectButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bookSelectPanelLayout = new javax.swing.GroupLayout(bookSelectPanel);
         bookSelectPanel.setLayout(bookSelectPanelLayout);
@@ -294,9 +310,11 @@ public class Camisa extends javax.swing.JFrame {
                 .addGroup(bookSelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bookSelectPanelLayout.createSequentialGroup()
                         .addComponent(bookSelectLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                        .addComponent(bookSelectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(bookSelectButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bookSelectComboBox, 0, 267, Short.MAX_VALUE))
+                    .addGroup(bookSelectPanelLayout.createSequentialGroup()
+                        .addComponent(bookSelectButton)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         bookSelectPanelLayout.setVerticalGroup(
@@ -320,16 +338,11 @@ public class Camisa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 9, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(userLabel)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(adminButton)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(studentButton))
-                                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 9, Short.MAX_VALUE))
+                            .addComponent(userSeparator)
+                            .addComponent(titleSeparator, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(addBookButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -341,16 +354,21 @@ public class Camisa extends javax.swing.JFrame {
                             .addComponent(jSeparator1)
                             .addComponent(userSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(userPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(userSeparator)
-                            .addComponent(titleSeparator, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(userPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(userLabel)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(adminButton)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(studentButton)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bookSelectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(110, 110, 110)))
+                        .addGap(56, 56, 56)))
                 .addComponent(imageLabel))
         );
         layout.setVerticalGroup(
@@ -358,32 +376,32 @@ public class Camisa extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(titleLabel)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(titleSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(studentButton)
                     .addComponent(adminButton)
                     .addComponent(userLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBookButton)
                     .addComponent(addUserButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addUserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addBookPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addBookPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bookSelectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(imageLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -392,13 +410,22 @@ public class Camisa extends javax.swing.JFrame {
 
     private boolean verifyLogin(boolean isAdmin){
         User gettedUser = usersProvider.login(usernameTextField.getText(), passwordPasswordField.getText());
-        if(gettedUser == null){
+        logedUserUsername = gettedUser.getUsername();
+        logedUserRole = gettedUser.getRole();
+        if(null == gettedUser){
             return false;
         }
         if(!isAdmin){
             return true;
         }
         return gettedUser.getRole().equals("Administrator");
+    }
+    
+    private void updateBooks(){
+        bookSelectComboBox.removeAllItems();
+        for (Book book : booksProvider.getBooks()){ 
+            bookSelectComboBox.addItem(book.getBookname());
+        }
     }
     
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -410,12 +437,16 @@ public class Camisa extends javax.swing.JFrame {
         bookSelectPanel.setVisible(false);
     }//GEN-LAST:event_formComponentShown
 
-    private void bookSelectComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSelectComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bookSelectComboBoxActionPerformed
-
     private void addBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookButtonActionPerformed
-        // TODO add your handling code here:
+        String bookName = addBookNameField.getText();
+        String bookAuthor = addBookAuthorLabel.getText();
+        if(bookName.equals("") || bookAuthor.equals("")){
+            return;
+        }
+        booksProvider.addBook(bookName, bookAuthor);
+        addBookNameField.setText("");
+        addBookAuthorField.setText("");
+        updateBooks();
     }//GEN-LAST:event_addBookButtonActionPerformed
 
     private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
@@ -431,6 +462,26 @@ public class Camisa extends javax.swing.JFrame {
     }//GEN-LAST:event_adminButtonActionPerformed
 
     private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
+        String userUsername = addUserUsernameField.getText();
+        String userPassword = addUserPasswordField.getText();
+        String userrole = addUserTypeComboBox.getSelectedItem().toString();
+        if(userUsername.equals("") || userPassword.equals("")){
+            return;
+        }
+        usersProvider.createUser(userUsername, userPassword, userrole);
+        addUserUsernameField.setText("");
+        addUserPasswordField.setText("");
+    }//GEN-LAST:event_addUserButtonActionPerformed
+
+    private void bookSelectComboBoxComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_bookSelectComboBoxComponentShown
+        
+    }//GEN-LAST:event_bookSelectComboBoxComponentShown
+
+    private void bookSelectPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_bookSelectPanelComponentShown
+        updateBooks();
+    }//GEN-LAST:event_bookSelectPanelComponentShown
+
+    private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
         if(verifyLogin(false)){
             addBookButton.setVisible(false);
             addBookPanel.setVisible(false);
@@ -440,7 +491,13 @@ public class Camisa extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(rootPane, "Error de credenciales");
         }
-    }//GEN-LAST:event_addUserButtonActionPerformed
+    }//GEN-LAST:event_studentButtonActionPerformed
+
+    private void bookSelectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookSelectButtonActionPerformed
+        Book selectedBook = booksProvider.getBookByName(bookSelectComboBox.getSelectedItem().toString());
+        String message = "El Libro " + selectedBook.getBookname() + " escrito por " + selectedBook.getBookauthor() + " fué reservado por el usuario " + logedUserRole + " " + logedUserUsername;
+        JOptionPane.showMessageDialog(rootPane, message);
+    }//GEN-LAST:event_bookSelectButtonActionPerformed
 
     /**
      * @param args the command line arguments

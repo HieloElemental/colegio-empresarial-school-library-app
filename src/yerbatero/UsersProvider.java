@@ -43,7 +43,15 @@ public class UsersProvider {
         return users;
     }
     
-    public List<User> getAdmins() {
+    public void createUser(String username, String password, String role) {
+        users.add(new User.Builder()
+            .setUsername(username)
+            .setPassword(password)
+            .setRole(role)
+            .build());
+    }
+    
+    /*public List<User> getAdmins() {
         List<User> admins = new ArrayList<>();
         for (User user : users) {
             if (user.getRole().equals("admin")) {
@@ -51,15 +59,5 @@ public class UsersProvider {
             }
         }
         return admins;
-    }
-
-    public List<User> getStudents() {
-        List<User> students = new ArrayList<>();
-        for (User user : users) {
-            if (user.getRole().equals("student")) {
-                students.add(user);
-            }
-        }
-        return students;
-    }
+    }*/
 }

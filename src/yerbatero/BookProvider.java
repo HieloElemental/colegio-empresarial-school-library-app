@@ -31,6 +31,22 @@ public class BookProvider {
             .build());
     }
     
+    public void addBook(String bookname, String author) {
+        books.add(new Book.Builder()
+            .setBookname(bookname)
+            .setBookAuthor(author)
+            .build());
+    }
+    
+    public Book getBookByName(String bookname){
+        for (Book book : books) {
+            if (book.getBookname().equals(bookname)) {
+                return book;
+            }
+        }
+        return null;
+    }
+    
     public List<Book> getBooks() {
         return books;
     }

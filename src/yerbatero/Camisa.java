@@ -152,7 +152,7 @@ public class Camisa extends javax.swing.JFrame {
         );
 
         addBookButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        addBookButton.setText("Agregar Libros");
+        addBookButton.setText("Agregar Libro");
         addBookButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBookButtonActionPerformed(evt);
@@ -169,7 +169,7 @@ public class Camisa extends javax.swing.JFrame {
         addBookNameField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         addBookAuthorLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        addBookAuthorLabel.setText("Contraseña:");
+        addBookAuthorLabel.setText("Autor:");
 
         addBookAuthorField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -180,15 +180,15 @@ public class Camisa extends javax.swing.JFrame {
             .addGroup(addBookPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addBookTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addBookTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addBookPanelLayout.createSequentialGroup()
                         .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addBookAuthorLabel)
                             .addComponent(addBookNameLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addBookNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                            .addComponent(addBookAuthorField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))))
+                            .addComponent(addBookNameField)
+                            .addComponent(addBookAuthorField, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         addBookPanelLayout.setVerticalGroup(
@@ -208,7 +208,7 @@ public class Camisa extends javax.swing.JFrame {
         );
 
         addUserButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        addUserButton.setText("Agregar Estudiantes");
+        addUserButton.setText("Agregar Usuario");
         addUserButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addUserButtonActionPerformed(evt);
@@ -338,9 +338,6 @@ public class Camisa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 9, Short.MAX_VALUE))
                             .addComponent(userSeparator)
                             .addComponent(titleSeparator, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -349,21 +346,24 @@ public class Camisa extends javax.swing.JFrame {
                                 .addComponent(addUserButton))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(addBookPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
+                                .addGap(18, 18, 18)
                                 .addComponent(addUserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jSeparator1)
                             .addComponent(userSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(userLabel)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(adminButton)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(studentButton)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(12, 12, 12)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(userPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(userLabel)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(adminButton)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(studentButton)))))
+                                .addGap(0, 9, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

@@ -409,16 +409,20 @@ public class Camisa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean verifyLogin(boolean isAdmin){
-        User gettedUser = usersProvider.login(usernameTextField.getText(), passwordPasswordField.getText());
-        logedUserUsername = gettedUser.getUsername();
-        logedUserRole = gettedUser.getRole();
-        if(null == gettedUser){
+        try{
+            User gettedUser = usersProvider.login(usernameTextField.getText(), passwordPasswordField.getText());
+            logedUserUsername = gettedUser.getUsername();
+            logedUserRole = gettedUser.getRole();
+            if(null == gettedUser){
+                return false;
+            }
+            if(!isAdmin){
+                return true;
+            }
+            return gettedUser.getRole().equals("Administrator");
+        }catch(Error e){
             return false;
         }
-        if(!isAdmin){
-            return true;
-        }
-        return gettedUser.getRole().equals("Administrator");
     }
     
     private void updateBooks(){
